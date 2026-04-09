@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ loja }} - Catálogo de Peças</title>
+    <!-- Bootstrap CSS via CDN (Não precisa baixar nada) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* CSS customizado para bater com a foto da loja */
+        .bg-df-amarelo { background-color: #f7d117; } /* Amarelo Trator */
+        .text-df-preto { color: #000000; }
+        .btn-compra { background-color: #000000; color: #f7d117; border: none; }
+        .btn-compra:hover { background-color: #333; color: #f7d117; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Barra de Navegação (Preta com letras Amarelas) -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: #f7d117;">
+                🚜 {{ loja }}
+            </a>
+        </div>
+    </nav>
+
+    <!-- Cabeçalho de Destaque (Amarelo) -->
+    <header class="bg-df-amarelo py-5 mb-4 shadow-sm">
+        <div class="container text-center">
+            <h1 class="fw-light text-dark">Catálogo de Peças Original</h1>
+            <p class="lead text-dark">Encontre o que você precisa para não deixar sua máquina parada.</p>
+        </div>
+    </header>
+
+    <!-- Listagem de Produtos -->
+    <div class="container">
+        <div class="row">
+            <!-- Aqui o Jinja2 faz a mágica: repete esse bloco para cada peça no Python -->
+            {% for peca in produtos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ peca.nome }}</h5>
+                        <p class="card-text text-muted">Categoria: {{ peca.categoria }}</p>
+                        <h4 class="text-dark">R$ {{ peca.preco }}</h4>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="#" class="btn btn-compra w-100">Solicitar Orçamento</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-5 bg-dark text-white-50">
+        <p>&copy; 2026 {{ loja }} - Projeto Bootcamp</p>
+    </footer>
+
+</body>
+</html>
