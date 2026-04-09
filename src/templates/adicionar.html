@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>DF Tratores - Cadastrar Peça</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-df-yellow { background-color: #f7d117; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark mb-5">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">🚜 DF TRATORES</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-df-yellow text-dark fw-bold">Cadastrar Nova Peça</div>
+                    <div class="card-body">
+                        <form action="/adicionar" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Nome da Peça</label>
+                                <input type="text" name="nome" class="form-control" required placeholder="Ex: Filtro de Óleo">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Categoria</label>
+                                <select name="categoria" class="form-select">
+                                    <option value="Motores">Motores</option>
+                                    <option value="Hidráulica">Hidráulica</option>
+                                    <option value="Transmissão">Transmissão</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Preço (R$)</label>
+                                <input type="number" step="0.01" name="preco" class="form-control" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-dark">Salvar no Catálogo</button>
+                                <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
