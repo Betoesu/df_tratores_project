@@ -3,59 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ loja }} - Catálogo de Peças</title>
-    <!-- Bootstrap CSS via CDN (Não precisa baixar nada) -->
+    <title>DF Tratores - Catálogo Profissional</title>
+    <!-- Google Fonts: Inter para um ar moderno -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-        /* CSS customizado para bater com a foto da loja */
-        .bg-df-amarelo { background-color: #f7d117; } /* Amarelo Trator */
-        .text-df-preto { color: #000000; }
-        .btn-compra { background-color: #000000; color: #f7d117; border: none; }
-        .btn-compra:hover { background-color: #333; color: #f7d117; }
+        body { font-family: 'Inter', sans-serif; }
+        .bg-df-yellow { background-color: #f7d117; }
+        
+        /* Seção Hero com imagem de fundo minimalista */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1530268576403-33927690f05e?q=80&w=2070&auto=format&fit=crop'); /* Imagem de trator minimalista */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+
+        .navbar-brand img { height: 40px; } /* Ajuste para sua logo depois */
+        .card { border: none; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .btn-dark { background-color: #000; border: none; font-weight: bold; }
+        .btn-dark:hover { background-color: #f7d117; color: #000; }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
-    <!-- Barra de Navegação (Preta com letras Amarelas) -->
-    <nav class="navbar navbar-dark bg-dark">
+    <!-- Navbar mais limpa -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#" style="color: #f7d117;">
-                🚜 {{ loja }}
+            <a class="navbar-brand fw-900" href="#">
+                <!-- Aqui você pode trocar o texto por <img src="logo.png"> depois -->
+                <span class="text-warning">DF</span> TRATORES
             </a>
+            <div class="ms-auto">
+                <span class="text-white-50">Atendimento à distância</span>
+            </div>
         </div>
     </nav>
 
-    <!-- Cabeçalho de Destaque (Amarelo) -->
-    <header class="bg-df-amarelo py-5 mb-4 shadow-sm">
-        <div class="container text-center">
-            <h1 class="fw-light text-dark">Catálogo de Peças Original</h1>
-            <p class="lead text-dark">Encontre o que você precisa para não deixar sua máquina parada.</p>
+    <!-- Hero Section: O impacto visual -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bolder mb-3">CATÁLOGO DE PEÇAS</h1>
+            <p class="lead mb-4">Soluções rápidas para quem não pode parar no campo.</p>
+            <a href="#catalogo" class="btn btn-warning btn-lg px-5 fw-bold text-dark">Ver Peças Disponíveis</a>
         </div>
     </header>
 
-    <!-- Listagem de Produtos -->
-    <div class="container">
+    <main class="container my-5" id="catalogo">
         <div class="row">
-            <!-- Aqui o Jinja2 faz a mágica: repete esse bloco para cada peça no Python -->
             {% for peca in produtos %}
             <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ peca.nome }}</h5>
-                        <p class="card-text text-muted">Categoria: {{ peca.categoria }}</p>
-                        <h4 class="text-dark">R$ {{ peca.preco }}</h4>
+                <div class="card shadow-sm h-100">
+                    <!-- Placeholder para foto da peça -->
+                    <div class="bg-light text-center py-4">
+                        <span style="font-size: 3rem;">⚙️</span>
                     </div>
-                    <div class="card-footer bg-white border-top-0">
-                        <a href="#" class="btn btn-compra w-100">Solicitar Orçamento</a>
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-1">{{ peca.nome }}</h5>
+                        <small class="text-muted d-block mb-3">{{ peca.categoria }}</small>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">R$ {{ peca.preco }}</span>
+                            <a href="#" class="btn btn-sm btn-dark">Solicitar</a>
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-    </div>
+    </main>
 
-    <footer class="text-center py-4 mt-5 bg-dark text-white-50">
-        <p>&copy; 2026 {{ loja }} - Projeto Bootcamp</p>
+    <footer class="bg-dark text-white py-4 text-center">
+        <p class="mb-0">© 2026 DF Tratores - Qualidade em cada engrenagem.</p>
     </footer>
 
 </body>
