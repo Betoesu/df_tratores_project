@@ -22,7 +22,7 @@
                 <div class="card shadow">
                     <div class="card-header bg-df-yellow text-dark fw-bold">Cadastrar Nova Peça</div>
                     <div class="card-body">
-                        <form action="/adicionar" method="POST">
+                        <form action="/adicionar" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">Nome da Peça</label>
                                 <input type="text" name="nome" class="form-control" required placeholder="Ex: Filtro de Óleo">
@@ -35,10 +35,18 @@
                                     <option value="Transmissão">Transmissão</option>
                                 </select>
                             </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Preço (R$)</label>
                                 <input type="number" step="0.01" name="preco" class="form-control" required>
                             </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Foto da Peça</label>
+                                <input type="file" name="imagem" class="form-control" accept="image/*">
+                                <small class="text-muted">Use fotos nítidas da DF Tratores.</small>
+                            </div>
+
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-dark">Salvar no Catálogo</button>
                                 <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Cancelar</a>
