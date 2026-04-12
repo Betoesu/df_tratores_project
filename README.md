@@ -36,6 +36,11 @@ Uma aplicação web (Flask) que serve como um catálogo digital interativo, onde
    `python src/app.py`
    *(Acesse em http://127.0.0.1:5000)*
 
+## 🔐 Acesso Administrativo
+Para fins de teste e avaliação, o painel de cadastro de peças pode ser acessado de duas formas:
+1. Através do botão **"+ Cadastrar Peça (ADM)"** localizado no menu superior (Navbar).
+2. Diretamente via URL: `http://127.0.0.1:5000/adicionar`
+
 ## 🧪 Testes e Qualidade (Lint)
 * **Para rodar os testes:** `python -m pytest`
 * **Para rodar o lint (análise estática):** `flake8 src`
