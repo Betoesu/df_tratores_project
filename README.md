@@ -1,3 +1,5 @@
+[![CI DF Tratores](https://github.com/Betoesu/df_tratores_project/actions/workflows/main.yml/badge.svg)](https://github.com/Betoesu/df_tratores_project/actions/workflows/main.yml)
+
 # 🚜 AgroPeças - Sistema de Catálogo e Vendas
 
 Este projeto visa resolver a dificuldade de produtores rurais em encontrar e orçar peças para maquinário pesado de forma ágil e remota.
