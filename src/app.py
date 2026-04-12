@@ -39,21 +39,26 @@ def home():
 @app.route('/adicionar', methods=['GET', 'POST'])
 def adicionar_peca():
     if request.method == 'POST':
-
         arquivo = request.files.get('imagem')
         
         if arquivo:
-            # Limpa o nome do arquivo e salva na pasta static/img
             nome_arquivo = secure_filename(arquivo.filename)
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo))
             caminho_imagem = f'img/{nome_arquivo}'
         else:
-            caminho_imagem = 'img/placeholder.jpg' # Caso não envie foto
+            caminho_imagem = 'img/placeholder.jpg'
+
+        # TRATAMENTO DE ERRO: Garante que o preço seja um número válido
+        raw_preco = request.form.get('preco')
+        try:
+            preco_final = float(raw_preco) if raw_preco else 0.0
+        except ValueError:
+            preco_final = 0.0
 
         nova_peca = {
             'nome': request.form.get('nome'),
             'categoria': request.form.get('categoria'),
-            'preco': float(request.form.get('preco')),
+            'preco': preco_final,
             'imagem': caminho_imagem
         }
 

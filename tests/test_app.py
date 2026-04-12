@@ -31,10 +31,10 @@ def test_cadastrar_peca_sucesso(client):
         'categoria': 'Motores',
         'preco': '120.50'
     }
-    # Simula o envio do formulário (POST)
     resposta = client.post('/adicionar', data=dados, follow_redirects=True)
     assert resposta.status_code == 200
-    assert b"Filtro de Ar" in resposta.data.lower()
+    # Ajustado para minúsculas para bater com o .lower()
+    assert b"filtro de ar" in resposta.data.lower()
 
 def test_cadastrar_peca_invalida(client):
     """Testa se o sistema lida com campos vazios (Entrada Inválida)"""
