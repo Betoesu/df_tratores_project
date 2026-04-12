@@ -17,7 +17,7 @@ Uma aplicação web (Flask) que serve como um catálogo digital interativo, onde
 
 ## 🚀 Como Executar
 1. Clone o repositório:
-   `git clone https://github.com/seu-usuario/agro-pecas.git`
+   `git clone https://github.com/Betoesu/df_tratores_project.git`
 2. Crie a venv:
    `python -m venv venv`
 3. Instale as dependências:

@@ -23,3 +23,15 @@ def test_adicionar_page_status_code(client):
     """Testa se a página de adicionar está acessível"""
     resposta = client.get('/adicionar')
     assert resposta.status_code == 200
+
+def test_cadastrar_peca_sucesso(client):
+    """Testa o cadastro de uma nova peça (Caminho Feliz)"""
+    dados = {
+        'nome': 'Filtro de Ar',
+        'categoria': 'Motores',
+        'preco': '120.50'
+    }
+    # Simula o envio do formulário (POST)
+    resposta = client.post('/adicionar', data=dados, follow_redirects=True)
+    assert resposta.status_code == 200
+    assert b"Filtro de Ar" in resposta.data.lower()

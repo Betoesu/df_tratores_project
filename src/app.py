@@ -62,45 +62,5 @@ def adicionar_peca():
     
     return render_template('adicionar.html')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
