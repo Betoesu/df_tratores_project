@@ -35,3 +35,17 @@ def test_cadastrar_peca_sucesso(client):
     resposta = client.post('/adicionar', data=dados, follow_redirects=True)
     assert resposta.status_code == 200
     assert b"Filtro de Ar" in resposta.data.lower()
+
+def test_cadastrar_peca_invalida(client):
+    """Testa se o sistema lida com campos vazios (Entrada Inválida)"""
+    dados_incompletos = {
+        'nome': '', # Nome vazio
+        'categoria': 'Motores',
+        'preco': '' # Preço vazio
+    }
+    resposta = client.post('/adicionar', data=dados_incompletos)
+    
+    # O HTML tem 'required', mas o teste simula um envio direto.
+    # Se o seu código Python não trata o erro, ele pode dar 500.
+    # Um resultado aceitável aqui é o status 200 (recarregar a página) ou 400.
+    assert resposta.status_code != 500
