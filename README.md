@@ -28,7 +28,12 @@ Para rodar os testes: `pytest`
 Para rodar o lint: `flake8 src`
 
 ## 📌 Versão
-1.0.0 (SemVer)
+1.0.0 
 
 ## 👤 Autor
 Pedro Sarmento - Estudante de Ciência da Computação
+
+### 🛠 Como testar este projeto:
+1. Acesse o link do repositório.
+2. Verifique a aba **Actions** para ver os testes automatizados passando.
+3. Versão atual: **1.0.0**

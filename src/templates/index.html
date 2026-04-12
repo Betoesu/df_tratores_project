@@ -60,7 +60,7 @@
                 <div class="card shadow-sm h-100">
                     <!-- Placeholder para foto da peça -->
                     <div class="bg-light text-center py-4">
-                        <span style="font-size: 3rem;">⚙️</span>
+                        <img src="{{  url_for('static', filename=peca.imagem)  }}" class="img-fluid" alt="{{ peca.nome }}" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body">
                         <h5 class="fw-bold mb-1">{{ peca.nome }}</h5>
