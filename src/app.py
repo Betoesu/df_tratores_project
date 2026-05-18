@@ -1,8 +1,18 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename 
+import requests
+
 
 app = Flask(__name__)
+
+@app.template_filter('moeda')
+def formato_moeda(valor):
+    """Filtro personalizado para formatar floats no padrão R$ 0,00"""
+    try:
+        return f"R$ {float(valor):.2f}".replace('.', ',')
+    except (ValueError, TypeError):
+        return f"R$ {valor}"
 
 UPLOAD_FOLDER = 'src/static/img'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -33,7 +43,7 @@ pecas = [
 @app.route('/')
 def home():
     # Isso vai procurar um arquivo chamado index.html dentro da pasta templates
-    return render_template('index.html', loja="DF Tratores", produtos=pecas)
+    return render_template('home.html', loja="DF Tratores", produtos=pecas)
 
 
 @app.route('/adicionar', methods=['GET', 'POST'])
@@ -67,5 +77,44 @@ def adicionar_peca():
     
     return render_template('adicionar.html')
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/carrinho', methods=['GET', 'POST'])
+def carrinho():
+    # 🚨 AS LINHAS SALVADORAS: Elas DEVEM começar valendo None
+    endereco = None
+    erro = None
+    
+    # Busca a primeira peça do catálogo para exibir na tela
+    peca_selecionada = pecas[0] if pecas else None
+
+    if request.method == 'POST':
+        cep_usuario = request.form.get('cep')
+        cep_limpo = cep_usuario.replace("-", "").strip()
+
+        if len(cep_limpo) != 8 or not cep_limpo.isdigit():
+            erro = "Por favor, digite um CEP válido com 8 números."
+        else:
+            try:
+                url = f"https://viacep.com.br/ws/{cep_limpo}/json/"
+                resposta = requests.get(url, timeout=5)
+                dados_api = resposta.json()
+
+                if 'erro' in dados_api:
+                    erro = "CEP não localizado em nossa base de dados agrícola."
+                else:
+                    endereco = dados_api # Aqui ela ganha o valor da API se der certo
+
+            except requests.exceptions.RequestException:
+                erro = "Não foi possível conectar ao serviço de frete. Tente novamente."
+
+    # Quando chegar aqui no GET, endereco valerá None (e o Jinja vai entender e esconder o bloco)
+    return render_template('carrinho.html', peca=peca_selecionada, endereco=endereco, erro=erro)
+    
+
+
+if __name__ == '__main__':
+    import os
+    # O Render injeta a porta correta nesta variável de ambiente chamada PORT
+    porta = int(os.environ.get("PORT", 5000))
+    
+    # host='0.0.0.0' abre as portas para a internet do Render receber as visitas
+    app.run(host='0.0.0.0', port=porta)

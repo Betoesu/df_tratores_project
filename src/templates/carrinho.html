@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - DF Tratores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-df-yellow { background-color: #f7d117; }
+        
+        /* Mantendo a identidade visual dos cards da Home */
+        .card { border: none; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        
+        /* Botão escuro padrão com hover amarelo da sua marca */
+        .btn-dark { background-color: #000; border: none; font-weight: bold; }
+        .btn-dark:hover { background-color: #f7d117; color: #000; }
+    </style>
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-900" href="{{ url_for('home') }}">
+                <span class="text-warning">DF</span> TRATORES
+            </a>
+            
+            <div class="ms-auto">
+                <a href="{{ url_for('home') }}" class="btn btn-outline-light btn-sm fw-bold me-2">
+                    ← Voltar ao Catálogo
+                </a>
+                <a href="{{ url_for('adicionar_peca') }}" class="btn btn-outline-warning btn-sm fw-bold">
+                    + Cadastrar Peça (ADM)
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5 flex-grow-1">
+        <div class="row g-4">
+            
+            <div class="col-md-7">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4 text-dark">Seu Orçamento</h4>
+                        
+                        <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ url_for('static', filename=peca.imagem if peca else 'img/mangueira.jpg') }}" 
+                                    class="img-fluid rounded me-3 shadow-sm" 
+                                    alt="Foto da Peça" 
+                                    style="width: 60px; height: 60px; object-fit: cover;">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">{{ peca.nome if peca else "Mangueira Hidráulica Premium" }}</h6>
+                                    <small class="text-muted">Categoria: {{ peca.categoria if peca else "Mangueiras" }}</small>
+                                </div>
+                            </div>
+                            <span class="fw-bold text-dark">{{ (peca.preco if peca else 150.0) | moeda }}</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <h5 class="fw-bold">Total Parcial:</h5>
+                            <h5 class="fw-bold text-warning bg-dark px-3 py-1 rounded">{{ 150.0 | moeda }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card shadow-sm border-top border-warning border-4 h-100">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-2 text-dark">Simular Frete</h4>
+                        <p class="text-muted small mb-4">Insira seu CEP para preenchimento automático do endereço de entrega.</p>
+                        
+                        <form method="POST" action="{{ url_for('carrinho') }}" class="mb-4">
+                            <div class="input-group">
+                                <input type="text" name="cep" class="form-control text-center fw-bold" placeholder="Digite o CEP (Ex: 72110600)" required maxlength="8">
+                                <button class="btn btn-dark" type="submit">Calcular</button>
+                            </div>
+                        </form>
+
+                        {% if endereco %}
+                        <div class="bg-light p-3 rounded border border-warning-subtle">
+                            <h6 class="fw-bold text-dark mb-3">📍 Endereço de Entrega:</h6>
+                            <p class="mb-1 small"><strong>Logradouro:</strong> {{ endereco.logradouro }}</p>
+                            <p class="mb-1 small"><strong>Bairro:</strong> {{ endereco.bairro }}</p>
+                            <p class="mb-3 small"><strong>Cidade/UF:</strong> {{ endereco.localidade }} - {{ endereco.uf }}</p>
+                            
+                            <div class="p-2 bg-df-yellow text-dark text-center rounded small fw-bold shadow-sm" role="alert">
+                                🚚 Rota ativa! Frete grátis via transportadora.
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if erro %}
+                        <div class="alert alert-danger py-2 small text-center fw-bold" role="alert">
+                            ⚠️ {{ erro }}
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-4 text-center">
+        <p class="mb-0">© 2026 DF Tratores - Qualidade em cada engrenagem.</p>
+    </footer>
+
+</body>
+</html>

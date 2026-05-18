@@ -10,9 +10,28 @@
 </head>
 <body class="bg-light">
 
-    <nav class="navbar navbar-dark bg-dark mb-5">
+    <!-- Navbar mais limpa -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">🚜 DF TRATORES</a>
+            <a class="navbar-brand fw-900" href="#">
+                <!-- Aqui você pode trocar o texto por <img src="logo.png"> depois -->
+                <span class="text-warning">DF</span> TRATORES
+            </a>
+            <div class="ms-auto">
+                <span class="text-white-50">Atendimento à distância</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <a class="navbar-brand fw-900" href="{{ url_for('home') }}">
+                <span class="text-warning">DF</span> TRATORES
+            </a>
+            
+            <div class="ms-auto">
+                <a href="{{ url_for('adicionar_peca') }}" class="btn btn-outline-warning btn-sm fw-bold">
+                    + Cadastrar Peça (ADM)
+                </a>
+            </div>
         </div>
     </nav>
 

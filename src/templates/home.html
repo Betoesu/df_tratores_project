@@ -78,8 +78,8 @@
                         <h5 class="fw-bold mb-1">{{ peca.nome }}</h5>
                         <small class="text-muted d-block mb-3">{{ peca.categoria }}</small>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="h5 mb-0">R$ {{ peca.preco }}</span>
-                            <a href="#" class="btn btn-sm btn-dark">Solicitar</a>
+                            <span class="h5 mb-0">{{ peca.preco | moeda}}</span>
+                            <a href="{{ url_for('carrinho') }}" class="btn btn-sm btn-dark">Solicitar</a>
                         </div>
                     </div>
                 </div>
