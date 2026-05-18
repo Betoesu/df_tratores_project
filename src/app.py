@@ -111,5 +111,10 @@ def carrinho():
     
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    import os
+    # O Render injeta a porta correta nesta variável de ambiente chamada PORT
+    porta = int(os.environ.get("PORT", 5000))
+    
+    # host='0.0.0.0' abre as portas para a internet do Render receber as visitas
+    app.run(host='0.0.0.0', port=porta)
