@@ -95,13 +95,18 @@ def carrinho():
         else:
             try:
                 url = f"https://viacep.com.br/ws/{cep_limpo}/json/"
-                resposta = requests.get(url, timeout=5)
+                
+                # 🚨 A LINHA SALVADORAM: Identifica o seu app para o ViaCEP não bloquear
+                headers = {'User-Agent': 'DFTratoresApp/1.0 (contato@dftratores.com)'}
+                
+                # Adicione o parâmetro headers=headers na requisição
+                resposta = requests.get(url, headers=headers, timeout=5)
                 dados_api = resposta.json()
 
                 if 'erro' in dados_api:
                     erro = "CEP não localizado em nossa base de dados agrícola."
                 else:
-                    endereco = dados_api # Aqui ela ganha o valor da API se der certo
+                    endereco = dados_api
 
             except requests.exceptions.RequestException:
                 erro = "Não foi possível conectar ao serviço de frete. Tente novamente."
